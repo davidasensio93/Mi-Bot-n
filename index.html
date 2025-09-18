@@ -12,10 +12,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Botón Sonoro">
     
-    <!-- Iconos para diferentes dispositivos -->
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjUwIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNzUgNzBMNzUgMTEwTDExMCA5MEw3NSA3MFoiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxODAiIHkyPSIxODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOSIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEzIDEyTDEzIDIwTDIwIDE2TDEzIDEyWiIgZmlsbD0iIzY2N2VlYSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgoK">
-    
     <style>
         * {
             margin: 0;
@@ -99,6 +95,20 @@
             justify-content: center;
             margin-right: 15px;
             font-size: 1.2em;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .card-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .card-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .card-body {
@@ -117,6 +127,20 @@
             color: #1f2937;
             text-align: center;
             margin-bottom: 10px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+            outline: none;
+        }
+
+        .card-title:hover {
+            background-color: rgba(220, 38, 38, 0.05);
+        }
+
+        .card-title:focus {
+            background-color: rgba(220, 38, 38, 0.1);
+            border: 1px solid #dc2626;
         }
 
         .card-subtitle {
@@ -207,6 +231,7 @@
             transition: all 0.3s ease;
             font-weight: 500;
             font-size: 1em;
+            margin: 5px;
         }
 
         .file-input-label:hover {
@@ -219,7 +244,15 @@
             transform: translateY(0);
         }
 
-        #audioFile {
+        .logo-button {
+            background: #1f2937 !important;
+        }
+
+        .logo-button:hover {
+            background: #111827 !important;
+        }
+
+        input[type="file"] {
             display: none;
         }
 
@@ -370,17 +403,15 @@
                 </label>
                 <input type="file" id="audioFile" accept="audio/*">
                 
-                <br><br>
-                
-                <label for="logoFile" class="file-input-label" style="background: #1f2937;">
+                <label for="logoFile" class="file-input-label logo-button">
                     🏛️ Seleccionar Escudo
                 </label>
                 <input type="file" id="logoFile" accept="image/*">
             </div>
             
             <div id="fileInfo" class="file-info" style="display: none;">
-                <strong>🎵 Audio:</strong> <span id="fileName"></span><br>
-                <strong>🏛️ Escudo:</strong> <span id="logoName">Por defecto</span>
+                <div><strong>🎵 Audio:</strong> <span id="fileName">Sin cargar</span></div>
+                <div><strong>🏛️ Escudo:</strong> <span id="logoName">Por defecto</span></div>
             </div>
             
             <div class="warning">
@@ -390,11 +421,10 @@
             <div class="instructions">
                 <h3>📋 Cómo usar:</h3>
                 <ol>
-                    <li><strong>Personaliza tu tarjeta:</strong> Puedes cambiar el texto "Tranvía Zaragoza" haciendo clic en él</li>
+                    <li><strong>Personaliza tu tarjeta:</strong> Haz clic en "Tranvía Zaragoza" para editarlo</li>
                     <li><strong>Añade tu escudo:</strong> Toca "Seleccionar Escudo" para poner el escudo del Ayuntamiento</li>
                     <li><strong>Selecciona un sonido:</strong> Toca "Seleccionar Sonido" y elige tu archivo de audio</li>
                     <li><strong>¡Toca la tarjeta!</strong> Una vez cargado, toca la tarjeta roja para reproducir</li>
-                    <li><strong>Todo se guarda:</strong> Tu sonido, escudo y texto se recordarán automáticamente</li>
                 </ol>
                 
                 <h3>💡 Formatos compatibles:</h3>
@@ -411,6 +441,7 @@
     <audio id="audioPlayer" preload="auto"></audio>
 
     <script>
+        // Variables globales
         const audioFile = document.getElementById('audioFile');
         const logoFile = document.getElementById('logoFile');
         const transportCard = document.getElementById('transportCard');
@@ -425,238 +456,12 @@
         let audioEnabled = false;
         let isAudioLoaded = false;
 
-        // Clase para manejar almacenamiento de audio y configuración
-        class AudioStorage {
-            constructor() {
-                this.dbName = 'SoundButtonDB';
-                this.version = 2;
-                this.storeName = 'audioFiles';
-                this.configStore = 'configuration';
-            }
-
-            // Método 1: IndexedDB (más robusto)
-            async saveToIndexedDB(file, type = 'audio') {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = async (e) => {
-                        try {
-                            const request = indexedDB.open(this.dbName, this.version);
-                            
-                            request.onupgradeneeded = (event) => {
-                                const db = event.target.result;
-                                if (!db.objectStoreNames.contains(this.storeName)) {
-                                    db.createObjectStore(this.storeName, { keyPath: 'id' });
-                                }
-                                if (!db.objectStoreNames.contains(this.configStore)) {
-                                    db.createObjectStore(this.configStore, { keyPath: 'key' });
-                                }
-                            };
-                            
-                            request.onsuccess = (event) => {
-                                const db = event.target.result;
-                                const transaction = db.transaction([this.storeName], 'readwrite');
-                                const store = transaction.objectStore(this.storeName);
-                                
-                                const fileData = {
-                                    id: type === 'audio' ? 'userAudio' : 'userLogo',
-                                    data: e.target.result,
-                                    name: file.name,
-                                    type: file.type,
-                                    size: file.size,
-                                    timestamp: Date.now()
-                                };
-                                
-                                store.put(fileData);
-                                transaction.oncomplete = () => resolve(true);
-                                transaction.onerror = () => reject(false);
-                            };
-                            
-                            request.onerror = () => reject(false);
-                            
-                        } catch (error) {
-                            reject(false);
-                        }
-                    };
-                    reader.onerror = () => reject(false);
-                    reader.readAsArrayBuffer(file);
-                });
-            }
-
-            // Guardar configuración (texto personalizado)
-            async saveConfig(key, value) {
-                return new Promise((resolve) => {
-                    try {
-                        const request = indexedDB.open(this.dbName, this.version);
-                        
-                        request.onsuccess = (event) => {
-                            const db = event.target.result;
-                            if (db.objectStoreNames.contains(this.configStore)) {
-                                const transaction = db.transaction([this.configStore], 'readwrite');
-                                const store = transaction.objectStore(this.configStore);
-                                
-                                store.put({ key: key, value: value, timestamp: Date.now() });
-                                transaction.oncomplete = () => resolve(true);
-                                transaction.onerror = () => resolve(false);
-                            }
-                        };
-                        
-                        request.onerror = () => resolve(false);
-                    } catch (error) {
-                        resolve(false);
-                    }
-                });
-            }
-
-            // Cargar configuración
-            async loadConfig(key) {
-                return new Promise((resolve) => {
-                    try {
-                        const request = indexedDB.open(this.dbName, this.version);
-                        
-                        request.onsuccess = (event) => {
-                            const db = event.target.result;
-                            if (!db.objectStoreNames.contains(this.configStore)) {
-                                resolve(null);
-                                return;
-                            }
-                            
-                            const transaction = db.transaction([this.configStore], 'readonly');
-                            const store = transaction.objectStore(this.configStore);
-                            const getRequest = store.get(key);
-                            
-                            getRequest.onsuccess = (event) => {
-                                const result = event.target.result;
-                                resolve(result ? result.value : null);
-                            };
-                            
-                            getRequest.onerror = () => resolve(null);
-                        };
-                        
-                        request.onerror = () => resolve(null);
-                    } catch (error) {
-                        resolve(null);
-                    }
-                });
-            }
-
-            // Método 2: URL.createObjectURL con referencia global (fallback)
-            saveToMemory(file, type = 'audio') {
-                try {
-                    const url = URL.createObjectURL(file);
-                    const storageKey = type === 'audio' ? 'savedAudio' : 'savedLogo';
-                    window[storageKey] = {
-                        url: url,
-                        name: file.name,
-                        type: file.type,
-                        size: file.size,
-                        timestamp: Date.now()
-                    };
-                    return true;
-                } catch (error) {
-                    console.log('Error guardando en memoria:', error);
-                    return false;
-                }
-            }
-
-            // Cargar desde IndexedDB
-            async loadFromIndexedDB(type = 'audio') {
-                return new Promise((resolve) => {
-                    try {
-                        const request = indexedDB.open(this.dbName, this.version);
-                        
-                        request.onsuccess = (event) => {
-                            const db = event.target.result;
-                            if (!db.objectStoreNames.contains(this.storeName)) {
-                                resolve(null);
-                                return;
-                            }
-                            
-                            const transaction = db.transaction([this.storeName], 'readonly');
-                            const store = transaction.objectStore(this.storeName);
-                            const id = type === 'audio' ? 'userAudio' : 'userLogo';
-                            const getRequest = store.get(id);
-                            
-                            getRequest.onsuccess = (event) => {
-                                const result = event.target.result;
-                                if (result) {
-                                    const blob = new Blob([result.data], { type: result.type });
-                                    const url = URL.createObjectURL(blob);
-                                    resolve({
-                                        url: url,
-                                        name: result.name,
-                                        type: result.type,
-                                        size: result.size
-                                    });
-                                } else {
-                                    resolve(null);
-                                }
-                            };
-                            
-                            getRequest.onerror = () => resolve(null);
-                        };
-                        
-                        request.onerror = () => resolve(null);
-                        
-                    } catch (error) {
-                        resolve(null);
-                    }
-                });
-            }
-
-            // Cargar desde memoria temporal
-            loadFromMemory(type = 'audio') {
-                const storageKey = type === 'audio' ? 'savedAudio' : 'savedLogo';
-                if (window[storageKey] && window[storageKey].url) {
-                    return window[storageKey];
-                }
-                return null;
-            }
-
-            // Guardar archivo (intenta múltiples métodos)
-            async saveFile(file, type = 'audio') {
-                let saved = false;
-                
-                // Intentar IndexedDB primero
-                try {
-                    saved = await this.saveToIndexedDB(file, type);
-                    if (saved) {
-                        console.log(`${type} guardado en IndexedDB`);
-                        return 'indexeddb';
-                    }
-                } catch (error) {
-                    console.log('IndexedDB falló, usando fallback');
-                }
-
-                // Fallback a memoria
-                if (this.saveToMemory(file, type)) {
-                    console.log(`${type} guardado en memoria temporal`);
-                    return 'memory';
-                }
-
-                return false;
-            }
-
-            // Cargar archivo (intenta múltiples métodos)
-            async loadFile(type = 'audio') {
-                // Intentar IndexedDB primero
-                let fileData = await this.loadFromIndexedDB(type);
-                if (fileData) {
-                    console.log(`${type} cargado desde IndexedDB`);
-                    return fileData;
-                }
-
-                // Fallback a memoria temporal
-                fileData = this.loadFromMemory(type);
-                if (fileData) {
-                    console.log(`${type} cargado desde memoria temporal`);
-                    return fileData;
-                }
-
-                return null;
-            }
-        }
-
-        const audioStorage = new AudioStorage();
+        // Almacenamiento simple en memoria del navegador
+        let savedData = {
+            audio: null,
+            logo: null,
+            title: 'Tranvía Zaragoza'
+        };
 
         // Función para mostrar notificaciones
         function showNotification(message, type = 'info') {
@@ -678,85 +483,129 @@
             soundStatus.innerHTML = `<span>${icon}</span><span>${message}</span>`;
         }
 
+        // Guardar datos en memoria del navegador
+        function saveToStorage() {
+            try {
+                const dataToSave = JSON.stringify(savedData);
+                // Intentar diferentes métodos de almacenamiento
+                if (window.localStorage) {
+                    localStorage.setItem('transportCardData', dataToSave);
+                } else {
+                    // Fallback - mantener en memoria global
+                    window.persistentData = savedData;
+                }
+                console.log('Datos guardados correctamente');
+                return true;
+            } catch (error) {
+                console.log('Error guardando datos:', error);
+                window.persistentData = savedData; // Fallback
+                return true;
+            }
+        }
+
+        // Cargar datos de memoria del navegador
+        function loadFromStorage() {
+            try {
+                let loadedData = null;
+                
+                if (window.localStorage && localStorage.getItem('transportCardData')) {
+                    loadedData = JSON.parse(localStorage.getItem('transportCardData'));
+                } else if (window.persistentData) {
+                    loadedData = window.persistentData;
+                }
+
+                if (loadedData) {
+                    savedData = { ...savedData, ...loadedData };
+                    console.log('Datos cargados correctamente');
+                    return true;
+                }
+            } catch (error) {
+                console.log('Error cargando datos:', error);
+            }
+            return false;
+        }
+
         // Cargar configuración guardada al iniciar
-        async function loadSavedData() {
+        function loadSavedData() {
             updateStatus('status-loading', 'Cargando configuración...', '⏳');
             
-            // Cargar audio
-            const audioData = await audioStorage.loadFile('audio');
-            if (audioData) {
-                audioPlayer.src = audioData.url;
-                isAudioLoaded = true;
-                fileName.textContent = `${audioData.name} ✅`;
-                fileName.style.color = '#16a34a';
-                fileInfo.style.display = 'block';
-            }
-            
-            // Cargar logo/escudo
-            const logoData = await audioStorage.loadFile('logo');
-            if (logoData) {
-                const img = document.createElement('img');
-                img.src = logoData.url;
-                img.alt = 'Escudo';
-                cardLogo.innerHTML = '';
-                cardLogo.appendChild(img);
-                logoName.textContent = `${logoData.name} ✅`;
-                logoName.style.color = '#16a34a';
-                fileInfo.style.display = 'block';
-            }
-            
-            // Cargar texto personalizado
-            const customTitle = await audioStorage.loadConfig('cardTitle');
-            if (customTitle) {
-                cardTitle.textContent = customTitle;
-            }
-            
-            // Actualizar estado final
-            if (isAudioLoaded) {
-                updateStatus('status-ready', 'Audio listo para reproducir', '✅');
-                transportCard.classList.add('pulse');
-                showNotification('✅ Configuración cargada', 'success');
+            if (loadFromStorage()) {
+                // Cargar audio
+                if (savedData.audio) {
+                    audioPlayer.src = savedData.audio.url;
+                    isAudioLoaded = true;
+                    fileName.textContent = `${savedData.audio.name} ✅`;
+                    fileInfo.style.display = 'block';
+                }
+                
+                // Cargar logo
+                if (savedData.logo) {
+                    const img = document.createElement('img');
+                    img.src = savedData.logo.url;
+                    img.alt = 'Escudo';
+                    cardLogo.innerHTML = '';
+                    cardLogo.appendChild(img);
+                    logoName.textContent = `${savedData.logo.name} ✅`;
+                    fileInfo.style.display = 'block';
+                }
+                
+                // Cargar título
+                if (savedData.title) {
+                    cardTitle.textContent = savedData.title;
+                }
+                
+                if (isAudioLoaded) {
+                    updateStatus('status-ready', 'Audio listo para reproducir', '✅');
+                    transportCard.classList.add('pulse');
+                    showNotification('✅ Configuración cargada', 'success');
+                } else {
+                    updateStatus('status-empty', 'Sin sonido cargado', '⚠️');
+                }
             } else {
                 updateStatus('status-empty', 'Sin sonido cargado', '⚠️');
             }
         }
 
         // Manejar selección de archivo de audio
-        audioFile.addEventListener('change', async function(e) {
+        audioFile.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
 
             updateStatus('status-loading', 'Guardando audio...', '⏳');
             showNotification('💾 Guardando tu sonido...', 'info');
 
-            // Guardar archivo
-            const saveResult = await audioStorage.saveFile(file, 'audio');
-            
-            if (saveResult) {
-                // Configurar reproductor
+            try {
                 const url = URL.createObjectURL(file);
                 audioPlayer.src = url;
                 isAudioLoaded = true;
                 audioEnabled = false; // Reset para móviles
 
+                // Guardar en memoria
+                savedData.audio = {
+                    url: url,
+                    name: file.name,
+                    type: file.type
+                };
+
+                saveToStorage();
+
                 // Actualizar UI
                 fileInfo.style.display = 'block';
                 fileName.textContent = `${file.name} ✅`;
-                fileName.style.color = '#16a34a';
                 
                 updateStatus('status-ready', 'Audio listo para reproducir', '✅');
                 transportCard.classList.add('pulse');
                 
-                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
-                showNotification(`✅ Audio guardado ${storageType}`, 'success');
-            } else {
+                showNotification('✅ Audio guardado correctamente', 'success');
+            } catch (error) {
+                console.error('Error:', error);
                 updateStatus('status-empty', 'Error al guardar audio', '❌');
                 showNotification('❌ Error al guardar el audio', 'error');
             }
         });
 
         // Manejar selección de logo/escudo
-        logoFile.addEventListener('change', async function(e) {
+        logoFile.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
 
@@ -767,35 +616,42 @@
 
             showNotification('💾 Guardando escudo...', 'info');
 
-            // Guardar archivo
-            const saveResult = await audioStorage.saveFile(file, 'logo');
-            
-            if (saveResult) {
-                // Mostrar imagen en el logo
+            try {
                 const url = URL.createObjectURL(file);
+                
+                // Mostrar imagen en el logo
                 const img = document.createElement('img');
                 img.src = url;
                 img.alt = 'Escudo';
                 cardLogo.innerHTML = '';
                 cardLogo.appendChild(img);
 
+                // Guardar en memoria
+                savedData.logo = {
+                    url: url,
+                    name: file.name,
+                    type: file.type
+                };
+
+                saveToStorage();
+
                 // Actualizar UI
                 fileInfo.style.display = 'block';
                 logoName.textContent = `${file.name} ✅`;
-                logoName.style.color = '#16a34a';
                 
-                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
-                showNotification(`✅ Escudo guardado ${storageType}`, 'success');
-            } else {
+                showNotification('✅ Escudo guardado correctamente', 'success');
+            } catch (error) {
+                console.error('Error:', error);
                 showNotification('❌ Error al guardar el escudo', 'error');
             }
         });
 
         // Manejar edición del título de la tarjeta
-        cardTitle.addEventListener('blur', async function() {
+        cardTitle.addEventListener('blur', function() {
             const newTitle = cardTitle.textContent.trim();
             if (newTitle) {
-                await audioStorage.saveConfig('cardTitle', newTitle);
+                savedData.title = newTitle;
+                saveToStorage();
                 showNotification('✅ Título guardado', 'success');
             }
         });
@@ -804,20 +660,6 @@
             if (e.key === 'Enter') {
                 e.preventDefault();
                 cardTitle.blur();
-            }
-        });izar UI
-                fileInfo.style.display = 'block';
-                fileName.textContent = `${file.name} ✅`;
-                fileName.style.color = '#16a34a';
-                
-                updateStatus('status-ready', 'Audio listo para reproducir', '✅');
-                transportCard.classList.add('pulse');
-                
-                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
-                showNotification(`✅ Audio guardado ${storageType}`, 'success');
-            } else {
-                updateStatus('status-empty', 'Error al guardar audio', '❌');
-                showNotification('❌ Error al guardar el audio', 'error');
             }
         });
 
@@ -862,7 +704,7 @@
 
         // Inicializar cuando la página esté lista
         window.addEventListener('load', function() {
-            setTimeout(loadSavedAudio, 500);
+            setTimeout(loadSavedData, 500);
         });
     </script>
 </body>
