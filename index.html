@@ -176,7 +176,7 @@
         </button>
         
         <div class="warning">
-            <strong>✅ Nuevo:</strong> Tu sonido se guarda automáticamente y se carga cada vez que abras la app. ¡Ya no necesitas subirlo otra vez!
+            <strong>⚠️ GitHub Pages:</strong> Tu sonido se guarda en el navegador del dispositivo. Si cambias de navegador o borras datos, necesitarás subirlo de nuevo.
         </div>
         
         <div class="instructions">
@@ -219,32 +219,47 @@
                 savedAudioData = audioData;
                 savedFileName = file.name;
                 
-                // Guardar en memoria persistente del navegador
+                // Guardar en memoria persistente del navegador usando IndexedDB
                 try {
-                    const audioInfo = {
-                        data: audioData,
-                        name: file.name,
-                        type: file.type,
-                        savedAt: new Date().toISOString()
+                    // Crear una base de datos simple en el navegador
+                    const dbRequest = indexedDB.open('SoundButtonDB', 1);
+                    
+                    dbRequest.onupgradeneeded = function(event) {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains('sounds')) {
+                            const store = db.createObjectStore('sounds', { keyPath: 'id' });
+                        }
                     };
                     
-                    // Usar almacenamiento local del navegador
-                    const storageKey = 'customSoundButton_audio';
-                    const audioBlob = new Blob([audioData], { type: file.type });
+                    dbRequest.onsuccess = function(event) {
+                        const db = event.target.result;
+                        const transaction = db.transaction(['sounds'], 'readwrite');
+                        const store = transaction.objectStore('sounds');
+                        
+                        const audioInfo = {
+                            id: 'myCustomSound',
+                            data: audioData,
+                            name: file.name,
+                            type: file.type,
+                            savedAt: new Date().toISOString()
+                        };
+                        
+                        store.put(audioInfo);
+                        console.log('Audio guardado en IndexedDB:', file.name);
+                    };
                     
-                    // Crear URL permanente
+                } catch (error) {
+                    console.log('Fallback a memoria temporal:', error);
+                    
+                    // Fallback: guardar en memoria de la sesión del navegador
+                    const audioBlob = new Blob([audioData], { type: file.type });
                     const permanentUrl = URL.createObjectURL(audioBlob);
                     
-                    // Guardar información del audio
                     window.customAudio = {
                         url: permanentUrl,
                         name: file.name,
                         type: file.type
                     };
-                    
-                    console.log('Audio guardado correctamente:', file.name);
-                } catch (error) {
-                    console.log('Usando almacenamiento temporal:', error);
                 }
             };
             reader.readAsArrayBuffer(file);
@@ -252,46 +267,91 @@
 
         // Función para cargar audio guardado
         function loadSavedAudio() {
-            if (window.customAudio && window.customAudio.url) {
-                audioPlayer.src = window.customAudio.url;
-                soundButton.disabled = false;
-                soundButton.textContent = '🎵 ¡Reproducir!';
+            // Intentar cargar desde IndexedDB
+            try {
+                const dbRequest = indexedDB.open('SoundButtonDB', 1);
                 
-                // Mostrar información del archivo guardado
-                fileInfo.style.display = 'block';
-                fileName.textContent = window.customAudio.name + ' ✅ (Guardado)';
-                fileName.style.color = '#2e7d32';
+                dbRequest.onsuccess = function(event) {
+                    const db = event.target.result;
+                    if (db.objectStoreNames.contains('sounds')) {
+                        const transaction = db.transaction(['sounds'], 'readonly');
+                        const store = transaction.objectStore('sounds');
+                        const request = store.get('myCustomSound');
+                        
+                        request.onsuccess = function(event) {
+                            const result = event.target.result;
+                            if (result && result.data) {
+                                // Crear blob y URL desde los datos guardados
+                                const audioBlob = new Blob([result.data], { type: result.type });
+                                const audioUrl = URL.createObjectURL(audioBlob);
+                                
+                                audioPlayer.src = audioUrl;
+                                soundButton.disabled = false;
+                                soundButton.textContent = '🎵 ¡Reproducir!';
+                                
+                                // Mostrar información del archivo guardado
+                                fileInfo.style.display = 'block';
+                                fileName.textContent = result.name + ' ✅ (Cargado)';
+                                fileName.style.color = '#2e7d32';
+                                
+                                // Mostrar mensaje de éxito
+                                showMessage('✅ Tu sonido guardado está listo!', '#4CAF50');
+                                
+                                console.log('Audio cargado desde IndexedDB:', result.name);
+                            }
+                        };
+                    }
+                };
                 
-                console.log('Audio cargado automáticamente:', window.customAudio.name);
-                return true;
+            } catch (error) {
+                console.log('No se pudo cargar desde IndexedDB:', error);
+                
+                // Fallback: intentar cargar desde memoria temporal
+                if (window.customAudio && window.customAudio.url) {
+                    audioPlayer.src = window.customAudio.url;
+                    soundButton.disabled = false;
+                    soundButton.textContent = '🎵 ¡Reproducir!';
+                    
+                    fileInfo.style.display = 'block';
+                    fileName.textContent = window.customAudio.name + ' ⚠️ (Temporal)';
+                    fileName.style.color = '#ff9800';
+                    
+                    return true;
+                }
             }
+            
             return false;
+        }
+
+        // Función para mostrar mensajes
+        function showMessage(text, color) {
+            const msg = document.createElement('div');
+            msg.style.cssText = `
+                position: fixed; 
+                top: 20px; 
+                left: 50%; 
+                transform: translateX(-50%); 
+                background: ${color}; 
+                color: white; 
+                padding: 10px 20px; 
+                border-radius: 25px; 
+                z-index: 1000;
+                font-size: 0.9em;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            `;
+            msg.textContent = text;
+            document.body.appendChild(msg);
+            
+            setTimeout(() => {
+                msg.style.opacity = '0';
+                msg.style.transition = 'opacity 0.5s';
+                setTimeout(() => msg.remove(), 500);
+            }, 3000);
         }
 
         // Cargar audio al iniciar la página
         window.addEventListener('load', function() {
-            if (loadSavedAudio()) {
-                // Mostrar mensaje de que el audio está listo
-                const successMsg = document.createElement('div');
-                successMsg.style.cssText = `
-                    position: fixed; 
-                    top: 20px; 
-                    left: 50%; 
-                    transform: translateX(-50%); 
-                    background: #4CAF50; 
-                    color: white; 
-                    padding: 10px 20px; 
-                    border-radius: 25px; 
-                    z-index: 1000;
-                    font-size: 0.9em;
-                `;
-                successMsg.textContent = '✅ Tu sonido guardado está listo!';
-                document.body.appendChild(successMsg);
-                
-                setTimeout(() => {
-                    successMsg.remove();
-                }, 3000);
-            }
+            loadSavedAudio();
         });
 
         // Manejar selección de archivo
@@ -328,25 +388,7 @@
                 audioEnabled = false;
                 
                 // Mostrar mensaje de confirmación
-                const saveMsg = document.createElement('div');
-                saveMsg.style.cssText = `
-                    position: fixed; 
-                    top: 20px; 
-                    left: 50%; 
-                    transform: translateX(-50%); 
-                    background: #FF6B6B; 
-                    color: white; 
-                    padding: 10px 20px; 
-                    border-radius: 25px; 
-                    z-index: 1000;
-                    font-size: 0.9em;
-                `;
-                saveMsg.textContent = '💾 Sonido guardado permanentemente!';
-                document.body.appendChild(saveMsg);
-                
-                setTimeout(() => {
-                    saveMsg.remove();
-                }, 3000);
+                showMessage('💾 Sonido guardado en tu navegador!', '#FF6B6B');
             }
         });
 
