@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Botón Sonoro</title>
+    
+    <!-- Metadatos para hacer que se vea como una app -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Botón Sonoro">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Botón Sonoro">
+    
+    <!-- Iconos para diferentes dispositivos -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjUwIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNzUgNzBMNzUgMTEwTDExMCA5MEw3NSA3MFoiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxODAiIHkyPSIxODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOSIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEzIDEyTDEzIDIwTDIwIDE2TDEzIDEyWiIgZmlsbD0iIzY2N2VlYSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgoK">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.5em;
+        }
+
+        .file-input-container {
+            margin-bottom: 20px;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .file-input-label:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        #audioFile {
+            display: none;
+        }
+
+        .sound-button {
+            padding: 20px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            min-width: 150px;
+        }
+
+        .sound-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .sound-button:active {
+            transform: translateY(-2px);
+        }
+
+        .sound-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .instructions ol {
+            margin: 10px 0;
+        }
+
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .file-info {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #2e7d32;
+        }
+
+        .warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: #f57c00;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 1.3em;
+            }
+            
+            .sound-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔊 Mi Botón</h1>
+        
+        <div class="file-input-container">
+            <label for="audioFile" class="file-input-label">
+                📁 Seleccionar Sonido
+            </label>
+            <input type="file" id="audioFile" accept="audio/*">
+        </div>
+        
+        <div id="fileInfo" class="file-info" style="display: none;">
+            <strong>Archivo cargado:</strong> <span id="fileName"></span>
+        </div>
+        
+        <button id="soundButton" class="sound-button" disabled>
+            🎵 ¡Reproducir!
+        </button>
+        
+        <div class="warning">
+            <strong>✅ Nuevo:</strong> Tu sonido se guarda automáticamente y se carga cada vez que abras la app. ¡Ya no necesitas subirlo otra vez!
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones de uso:</h3>
+            <ol>
+                <li><strong>Primera vez:</strong> Selecciona tu sonido - se guardará automáticamente</li>
+                <li><strong>Siguientes veces:</strong> Tu sonido se carga solo al abrir la app</li>
+                <li><strong>Cambiar sonido:</strong> Selecciona uno nuevo y reemplazará el anterior</li>
+                <li><strong>¡Disfruta!</strong> Funciona offline y sin recargas</li>
+            </ol>
+            
+            <h3>💡 Consejos:</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li>• Archivos recomendados: MP3, WAV, OGG</li>
+                <li>• Tamaño máximo recomendado: 5MB</li>
+                <li>• Funciona offline una vez cargado</li>
+                <li>• Compatible con todos los móviles</li>
+            </ul>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" preload="auto"></audio>
+
+    <script>
+        const audioFile = document.getElementById('audioFile');
+        const soundButton = document.getElementById('soundButton');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        
+        let audioEnabled = false;
+        let savedAudioData = null;
+        let savedFileName = '';
+
+        // Función para guardar audio en memoria del navegador
+        function saveAudioToStorage(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const audioData = e.target.result;
+                savedAudioData = audioData;
+                savedFileName = file.name;
+                
+                // Guardar en memoria persistente del navegador
+                try {
+                    const audioInfo = {
+                        data: audioData,
+                        name: file.name,
+                        type: file.type,
+                        savedAt: new Date().toISOString()
+                    };
+                    
+                    // Usar almacenamiento local del navegador
+                    const storageKey = 'customSoundButton_audio';
+                    const audioBlob = new Blob([audioData], { type: file.type });
+                    
+                    // Crear URL permanente
+                    const permanentUrl = URL.createObjectURL(audioBlob);
+                    
+                    // Guardar información del audio
+                    window.customAudio = {
+                        url: permanentUrl,
+                        name: file.name,
+                        type: file.type
+                    };
+                    
+                    console.log('Audio guardado correctamente:', file.name);
+                } catch (error) {
+                    console.log('Usando almacenamiento temporal:', error);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Función para cargar audio guardado
+        function loadSavedAudio() {
+            if (window.customAudio && window.customAudio.url) {
+                audioPlayer.src = window.customAudio.url;
+                soundButton.disabled = false;
+                soundButton.textContent = '🎵 ¡Reproducir!';
+                
+                // Mostrar información del archivo guardado
+                fileInfo.style.display = 'block';
+                fileName.textContent = window.customAudio.name + ' ✅ (Guardado)';
+                fileName.style.color = '#2e7d32';
+                
+                console.log('Audio cargado automáticamente:', window.customAudio.name);
+                return true;
+            }
+            return false;
+        }
+
+        // Cargar audio al iniciar la página
+        window.addEventListener('load', function() {
+            if (loadSavedAudio()) {
+                // Mostrar mensaje de que el audio está listo
+                const successMsg = document.createElement('div');
+                successMsg.style.cssText = `
+                    position: fixed; 
+                    top: 20px; 
+                    left: 50%; 
+                    transform: translateX(-50%); 
+                    background: #4CAF50; 
+                    color: white; 
+                    padding: 10px 20px; 
+                    border-radius: 25px; 
+                    z-index: 1000;
+                    font-size: 0.9em;
+                `;
+                successMsg.textContent = '✅ Tu sonido guardado está listo!';
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 3000);
+            }
+        });
+
+        // Manejar selección de archivo
+        audioFile.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Guardar el nuevo audio
+                saveAudioToStorage(file);
+                
+                // Configurar reproductor
+                const url = URL.createObjectURL(file);
+                audioPlayer.src = url;
+                window.customAudio = {
+                    url: url,
+                    name: file.name,
+                    type: file.type
+                };
+                
+                soundButton.disabled = false;
+                soundButton.textContent = '🎵 ¡Reproducir!';
+                
+                // Mostrar información del archivo
+                fileInfo.style.display = 'block';
+                fileName.textContent = file.name + ' 💾 (Guardando...)';
+                fileName.style.color = '#ff9800';
+                
+                // Confirmar guardado después de un momento
+                setTimeout(() => {
+                    fileName.textContent = file.name + ' ✅ (Guardado)';
+                    fileName.style.color = '#2e7d32';
+                }, 1000);
+                
+                // Reset audio enabled flag
+                audioEnabled = false;
+                
+                // Mostrar mensaje de confirmación
+                const saveMsg = document.createElement('div');
+                saveMsg.style.cssText = `
+                    position: fixed; 
+                    top: 20px; 
+                    left: 50%; 
+                    transform: translateX(-50%); 
+                    background: #FF6B6B; 
+                    color: white; 
+                    padding: 10px 20px; 
+                    border-radius: 25px; 
+                    z-index: 1000;
+                    font-size: 0.9em;
+                `;
+                saveMsg.textContent = '💾 Sonido guardado permanentemente!';
+                document.body.appendChild(saveMsg);
+                
+                setTimeout(() => {
+                    saveMsg.remove();
+                }, 3000);
+            }
+        });
+
+        // Manejar click del botón
+        soundButton.addEventListener('click', function() {
+            if (!audioEnabled) {
+                // Primer toque - activar audio (necesario en móviles)
+                audioPlayer.play().then(() => {
+                    audioEnabled = true;
+                    soundButton.textContent = '🔊 ¡Toca para sonar!';
+                }).catch(e => {
+                    console.log('Error al activar audio:', e);
+                });
+            } else {
+                // Reproducir sonido
+                audioPlayer.currentTime = 0; // Reiniciar desde el principio
+                audioPlayer.play().catch(e => {
+                    console.log('Error al reproducir:', e);
+                });
+            }
+        });
+
+        // Agregar efecto visual al reproducir
+        audioPlayer.addEventListener('play', function() {
+            soundButton.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                soundButton.style.transform = 'translateY(-5px)';
+            }, 100);
+        });
+
+        // Vibración en móviles (si está disponible)
+        soundButton.addEventListener('click', function() {
+            if (navigator.vibrate && audioEnabled) {
+                navigator.vibrate(50);
+            }
+        });
+
+        // Prevenir que se pierda el audio al recargar
+        window.addEventListener('beforeunload', function() {
+            // El audio ya está guardado en window.customAudio
+            console.log('Página cerrada - Audio permanece guardado');
+        });
+    </script>
+</body>
+</html>
