@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Botón Sonoro</title>
+    <title>Mi Botón</title>
     
     <!-- Metadatos para hacer que se vea como una app -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,186 +15,396 @@
     <!-- Iconos para diferentes dispositivos -->
     <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iNDAiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjUwIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNzUgNzBMNzUgMTEwTDExMCA5MEw3NSA3MFoiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxODAiIHkyPSIxODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0idXJsKCNncmFkaWVudDBfbGluZWFyXzFfMSkiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOSIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEzIDEyTDEzIDIwTDIwIDE2TDEzIDEyWiIgZmlsbD0iIzY2N2VlYSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgoK">
+    
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .main-container {
             max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Tarjeta de Transporte Estilo Zaragoza */
+        .transport-card {
             width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 3px solid #dc2626;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.15);
+            margin-bottom: 40px;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .transport-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.25);
+        }
+
+        .transport-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.2);
+        }
+
+        .card-header {
+            background: #dc2626;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(45deg, transparent 25%, #dc2626 25%, #dc2626 50%, transparent 50%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .card-logo {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .card-body {
+            padding: 20px;
+            height: calc(100% - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .card-subtitle {
+            font-size: 0.9em;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .sound-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .status-ready {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-empty {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-loading {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* Decoraciones de tarjeta */
+        .card-decoration {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #dc2626;
+            opacity: 0.6;
+        }
+
+        /* Sección de configuración */
+        .config-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
             backdrop-filter: blur(10px);
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 1.5em;
+        .section-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         .file-input-container {
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .file-input-label {
             display: inline-block;
-            padding: 12px 24px;
-            background: #4CAF50;
+            padding: 15px 30px;
+            background: #dc2626;
             color: white;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
+            font-size: 1em;
         }
 
         .file-input-label:hover {
-            background: #45a049;
+            background: #b91c1c;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        .file-input-label:active {
+            transform: translateY(0);
         }
 
         #audioFile {
             display: none;
         }
 
-        .sound-button {
-            padding: 20px 40px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin: 20px;
-            min-width: 150px;
+        .file-info {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 10px;
+            font-size: 0.9em;
+            color: #16a34a;
+            text-align: center;
         }
 
-        .sound-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .sound-button:active {
-            transform: translateY(-2px);
-        }
-
-        .sound-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            text-align: center;
         }
 
         .instructions {
             background: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 20px;
             margin-top: 20px;
-            text-align: left;
         }
 
         .instructions h3 {
             margin-top: 0;
-            color: #333;
+            color: #1f2937;
+            font-size: 1.1em;
         }
 
-        .instructions ol {
+        .instructions ol, .instructions ul {
             margin: 10px 0;
+            padding-left: 20px;
         }
 
         .instructions li {
             margin: 8px 0;
-            line-height: 1.4;
+            line-height: 1.5;
+            color: #374151;
         }
 
-        .file-info {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 8px;
-            font-size: 0.9em;
-            color: #2e7d32;
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
-        .warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: #f57c00;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 0.9em;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
 
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+        }
+
+        .notification.success {
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+        }
+
+        .notification.error {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+        }
+
+        .notification.info {
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
-            .container {
+            body {
+                padding: 15px;
+            }
+            
+            .transport-card {
+                height: 200px;
+                margin-bottom: 30px;
+            }
+            
+            .card-header {
+                height: 50px;
+                font-size: 1em;
+            }
+            
+            .card-logo {
+                width: 30px;
+                height: 30px;
+                font-size: 1em;
+            }
+            
+            .card-title {
+                font-size: 1.2em;
+            }
+            
+            .config-section {
                 padding: 20px;
-                margin: 10px;
-            }
-            
-            h1 {
-                font-size: 1.3em;
-            }
-            
-            .sound-button {
-                padding: 15px 30px;
-                font-size: 1.1em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔊 Mi Botón</h1>
-        
-        <div class="file-input-container">
-            <label for="audioFile" class="file-input-label">
-                📁 Seleccionar Sonido
-            </label>
-            <input type="file" id="audioFile" accept="audio/*">
+    <div class="main-container">
+        <!-- Tarjeta de Transporte -->
+        <div class="transport-card" id="transportCard">
+            <div class="card-header">
+                <div class="card-logo" id="cardLogo">🏛️</div>
+                <span>TRANSPORTE URBANO</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title" contenteditable="true" id="cardTitle">Tranvía Zaragoza</div>
+                <div class="card-subtitle">Toca la tarjeta para reproducir</div>
+                <div class="sound-status status-empty" id="soundStatus">
+                    <span>⚠️</span>
+                    <span>Sin sonido cargado</span>
+                </div>
+                <div class="card-decoration">🔊</div>
+            </div>
         </div>
-        
-        <div id="fileInfo" class="file-info" style="display: none;">
-            <strong>Archivo cargado:</strong> <span id="fileName"></span>
-        </div>
-        
-        <button id="soundButton" class="sound-button" disabled>
-            🎵 ¡Reproducir!
-        </button>
-        
-        <div class="warning">
-            <strong>⚠️ GitHub Pages:</strong> Tu sonido se guarda en el navegador del dispositivo. Si cambias de navegador o borras datos, necesitarás subirlo de nuevo.
-        </div>
-        
-        <div class="instructions">
-            <h3>📋 Instrucciones de uso:</h3>
-            <ol>
-                <li><strong>Primera vez:</strong> Selecciona tu sonido - se guardará automáticamente</li>
-                <li><strong>Siguientes veces:</strong> Tu sonido se carga solo al abrir la app</li>
-                <li><strong>Cambiar sonido:</strong> Selecciona uno nuevo y reemplazará el anterior</li>
-                <li><strong>¡Disfruta!</strong> Funciona offline y sin recargas</li>
-            </ol>
+
+        <!-- Sección de Configuración -->
+        <div class="config-section">
+            <h2 class="section-title">⚙️ Configuración</h2>
             
-            <h3>💡 Consejos:</h3>
-            <ul style="list-style: none; padding: 0;">
-                <li>• Archivos recomendados: MP3, WAV, OGG</li>
-                <li>• Tamaño máximo recomendado: 5MB</li>
-                <li>• Funciona offline una vez cargado</li>
-                <li>• Compatible con todos los móviles</li>
-            </ul>
+            <div class="file-input-container">
+                <label for="audioFile" class="file-input-label">
+                    🎵 Seleccionar Sonido
+                </label>
+                <input type="file" id="audioFile" accept="audio/*">
+                
+                <br><br>
+                
+                <label for="logoFile" class="file-input-label" style="background: #1f2937;">
+                    🏛️ Seleccionar Escudo
+                </label>
+                <input type="file" id="logoFile" accept="image/*">
+            </div>
+            
+            <div id="fileInfo" class="file-info" style="display: none;">
+                <strong>🎵 Audio:</strong> <span id="fileName"></span><br>
+                <strong>🏛️ Escudo:</strong> <span id="logoName">Por defecto</span>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> El sonido se guarda en tu navegador. Si borras los datos del navegador o cambias de dispositivo, necesitarás subirlo de nuevo.
+            </div>
+            
+            <div class="instructions">
+                <h3>📋 Cómo usar:</h3>
+                <ol>
+                    <li><strong>Personaliza tu tarjeta:</strong> Puedes cambiar el texto "Tranvía Zaragoza" haciendo clic en él</li>
+                    <li><strong>Añade tu escudo:</strong> Toca "Seleccionar Escudo" para poner el escudo del Ayuntamiento</li>
+                    <li><strong>Selecciona un sonido:</strong> Toca "Seleccionar Sonido" y elige tu archivo de audio</li>
+                    <li><strong>¡Toca la tarjeta!</strong> Una vez cargado, toca la tarjeta roja para reproducir</li>
+                    <li><strong>Todo se guarda:</strong> Tu sonido, escudo y texto se recordarán automáticamente</li>
+                </ol>
+                
+                <h3>💡 Formatos compatibles:</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>• <strong>Audio:</strong> MP3, WAV, OGG, M4A (menos de 10MB)</li>
+                    <li>• <strong>Imagen:</strong> JPG, PNG, GIF (menos de 5MB)</li>
+                    <li>• <strong>Texto:</strong> Haz clic en "Tranvía Zaragoza" para editarlo</li>
+                    <li>• Funciona completamente offline</li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -202,234 +412,457 @@
 
     <script>
         const audioFile = document.getElementById('audioFile');
-        const soundButton = document.getElementById('soundButton');
+        const logoFile = document.getElementById('logoFile');
+        const transportCard = document.getElementById('transportCard');
         const audioPlayer = document.getElementById('audioPlayer');
         const fileInfo = document.getElementById('fileInfo');
         const fileName = document.getElementById('fileName');
+        const logoName = document.getElementById('logoName');
+        const soundStatus = document.getElementById('soundStatus');
+        const cardLogo = document.getElementById('cardLogo');
+        const cardTitle = document.getElementById('cardTitle');
         
         let audioEnabled = false;
-        let savedAudioData = null;
-        let savedFileName = '';
+        let isAudioLoaded = false;
 
-        // Función para guardar audio en memoria del navegador
-        function saveAudioToStorage(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const audioData = e.target.result;
-                savedAudioData = audioData;
-                savedFileName = file.name;
-                
-                // Guardar en memoria persistente del navegador usando IndexedDB
-                try {
-                    // Crear una base de datos simple en el navegador
-                    const dbRequest = indexedDB.open('SoundButtonDB', 1);
-                    
-                    dbRequest.onupgradeneeded = function(event) {
-                        const db = event.target.result;
-                        if (!db.objectStoreNames.contains('sounds')) {
-                            const store = db.createObjectStore('sounds', { keyPath: 'id' });
+        // Clase para manejar almacenamiento de audio y configuración
+        class AudioStorage {
+            constructor() {
+                this.dbName = 'SoundButtonDB';
+                this.version = 2;
+                this.storeName = 'audioFiles';
+                this.configStore = 'configuration';
+            }
+
+            // Método 1: IndexedDB (más robusto)
+            async saveToIndexedDB(file, type = 'audio') {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const request = indexedDB.open(this.dbName, this.version);
+                            
+                            request.onupgradeneeded = (event) => {
+                                const db = event.target.result;
+                                if (!db.objectStoreNames.contains(this.storeName)) {
+                                    db.createObjectStore(this.storeName, { keyPath: 'id' });
+                                }
+                                if (!db.objectStoreNames.contains(this.configStore)) {
+                                    db.createObjectStore(this.configStore, { keyPath: 'key' });
+                                }
+                            };
+                            
+                            request.onsuccess = (event) => {
+                                const db = event.target.result;
+                                const transaction = db.transaction([this.storeName], 'readwrite');
+                                const store = transaction.objectStore(this.storeName);
+                                
+                                const fileData = {
+                                    id: type === 'audio' ? 'userAudio' : 'userLogo',
+                                    data: e.target.result,
+                                    name: file.name,
+                                    type: file.type,
+                                    size: file.size,
+                                    timestamp: Date.now()
+                                };
+                                
+                                store.put(fileData);
+                                transaction.oncomplete = () => resolve(true);
+                                transaction.onerror = () => reject(false);
+                            };
+                            
+                            request.onerror = () => reject(false);
+                            
+                        } catch (error) {
+                            reject(false);
                         }
                     };
-                    
-                    dbRequest.onsuccess = function(event) {
-                        const db = event.target.result;
-                        const transaction = db.transaction(['sounds'], 'readwrite');
-                        const store = transaction.objectStore('sounds');
-                        
-                        const audioInfo = {
-                            id: 'myCustomSound',
-                            data: audioData,
-                            name: file.name,
-                            type: file.type,
-                            savedAt: new Date().toISOString()
-                        };
-                        
-                        store.put(audioInfo);
-                        console.log('Audio guardado en IndexedDB:', file.name);
-                    };
-                    
-                } catch (error) {
-                    console.log('Fallback a memoria temporal:', error);
-                    
-                    // Fallback: guardar en memoria de la sesión del navegador
-                    const audioBlob = new Blob([audioData], { type: file.type });
-                    const permanentUrl = URL.createObjectURL(audioBlob);
-                    
-                    window.customAudio = {
-                        url: permanentUrl,
-                        name: file.name,
-                        type: file.type
-                    };
-                }
-            };
-            reader.readAsArrayBuffer(file);
-        }
+                    reader.onerror = () => reject(false);
+                    reader.readAsArrayBuffer(file);
+                });
+            }
 
-        // Función para cargar audio guardado
-        function loadSavedAudio() {
-            // Intentar cargar desde IndexedDB
-            try {
-                const dbRequest = indexedDB.open('SoundButtonDB', 1);
-                
-                dbRequest.onsuccess = function(event) {
-                    const db = event.target.result;
-                    if (db.objectStoreNames.contains('sounds')) {
-                        const transaction = db.transaction(['sounds'], 'readonly');
-                        const store = transaction.objectStore('sounds');
-                        const request = store.get('myCustomSound');
+            // Guardar configuración (texto personalizado)
+            async saveConfig(key, value) {
+                return new Promise((resolve) => {
+                    try {
+                        const request = indexedDB.open(this.dbName, this.version);
                         
-                        request.onsuccess = function(event) {
-                            const result = event.target.result;
-                            if (result && result.data) {
-                                // Crear blob y URL desde los datos guardados
-                                const audioBlob = new Blob([result.data], { type: result.type });
-                                const audioUrl = URL.createObjectURL(audioBlob);
+                        request.onsuccess = (event) => {
+                            const db = event.target.result;
+                            if (db.objectStoreNames.contains(this.configStore)) {
+                                const transaction = db.transaction([this.configStore], 'readwrite');
+                                const store = transaction.objectStore(this.configStore);
                                 
-                                audioPlayer.src = audioUrl;
-                                soundButton.disabled = false;
-                                soundButton.textContent = '🎵 ¡Reproducir!';
-                                
-                                // Mostrar información del archivo guardado
-                                fileInfo.style.display = 'block';
-                                fileName.textContent = result.name + ' ✅ (Cargado)';
-                                fileName.style.color = '#2e7d32';
-                                
-                                // Mostrar mensaje de éxito
-                                showMessage('✅ Tu sonido guardado está listo!', '#4CAF50');
-                                
-                                console.log('Audio cargado desde IndexedDB:', result.name);
+                                store.put({ key: key, value: value, timestamp: Date.now() });
+                                transaction.oncomplete = () => resolve(true);
+                                transaction.onerror = () => resolve(false);
                             }
                         };
+                        
+                        request.onerror = () => resolve(false);
+                    } catch (error) {
+                        resolve(false);
                     }
-                };
-                
-            } catch (error) {
-                console.log('No se pudo cargar desde IndexedDB:', error);
-                
-                // Fallback: intentar cargar desde memoria temporal
-                if (window.customAudio && window.customAudio.url) {
-                    audioPlayer.src = window.customAudio.url;
-                    soundButton.disabled = false;
-                    soundButton.textContent = '🎵 ¡Reproducir!';
-                    
-                    fileInfo.style.display = 'block';
-                    fileName.textContent = window.customAudio.name + ' ⚠️ (Temporal)';
-                    fileName.style.color = '#ff9800';
-                    
+                });
+            }
+
+            // Cargar configuración
+            async loadConfig(key) {
+                return new Promise((resolve) => {
+                    try {
+                        const request = indexedDB.open(this.dbName, this.version);
+                        
+                        request.onsuccess = (event) => {
+                            const db = event.target.result;
+                            if (!db.objectStoreNames.contains(this.configStore)) {
+                                resolve(null);
+                                return;
+                            }
+                            
+                            const transaction = db.transaction([this.configStore], 'readonly');
+                            const store = transaction.objectStore(this.configStore);
+                            const getRequest = store.get(key);
+                            
+                            getRequest.onsuccess = (event) => {
+                                const result = event.target.result;
+                                resolve(result ? result.value : null);
+                            };
+                            
+                            getRequest.onerror = () => resolve(null);
+                        };
+                        
+                        request.onerror = () => resolve(null);
+                    } catch (error) {
+                        resolve(null);
+                    }
+                });
+            }
+
+            // Método 2: URL.createObjectURL con referencia global (fallback)
+            saveToMemory(file, type = 'audio') {
+                try {
+                    const url = URL.createObjectURL(file);
+                    const storageKey = type === 'audio' ? 'savedAudio' : 'savedLogo';
+                    window[storageKey] = {
+                        url: url,
+                        name: file.name,
+                        type: file.type,
+                        size: file.size,
+                        timestamp: Date.now()
+                    };
                     return true;
+                } catch (error) {
+                    console.log('Error guardando en memoria:', error);
+                    return false;
                 }
             }
-            
-            return false;
+
+            // Cargar desde IndexedDB
+            async loadFromIndexedDB(type = 'audio') {
+                return new Promise((resolve) => {
+                    try {
+                        const request = indexedDB.open(this.dbName, this.version);
+                        
+                        request.onsuccess = (event) => {
+                            const db = event.target.result;
+                            if (!db.objectStoreNames.contains(this.storeName)) {
+                                resolve(null);
+                                return;
+                            }
+                            
+                            const transaction = db.transaction([this.storeName], 'readonly');
+                            const store = transaction.objectStore(this.storeName);
+                            const id = type === 'audio' ? 'userAudio' : 'userLogo';
+                            const getRequest = store.get(id);
+                            
+                            getRequest.onsuccess = (event) => {
+                                const result = event.target.result;
+                                if (result) {
+                                    const blob = new Blob([result.data], { type: result.type });
+                                    const url = URL.createObjectURL(blob);
+                                    resolve({
+                                        url: url,
+                                        name: result.name,
+                                        type: result.type,
+                                        size: result.size
+                                    });
+                                } else {
+                                    resolve(null);
+                                }
+                            };
+                            
+                            getRequest.onerror = () => resolve(null);
+                        };
+                        
+                        request.onerror = () => resolve(null);
+                        
+                    } catch (error) {
+                        resolve(null);
+                    }
+                });
+            }
+
+            // Cargar desde memoria temporal
+            loadFromMemory(type = 'audio') {
+                const storageKey = type === 'audio' ? 'savedAudio' : 'savedLogo';
+                if (window[storageKey] && window[storageKey].url) {
+                    return window[storageKey];
+                }
+                return null;
+            }
+
+            // Guardar archivo (intenta múltiples métodos)
+            async saveFile(file, type = 'audio') {
+                let saved = false;
+                
+                // Intentar IndexedDB primero
+                try {
+                    saved = await this.saveToIndexedDB(file, type);
+                    if (saved) {
+                        console.log(`${type} guardado en IndexedDB`);
+                        return 'indexeddb';
+                    }
+                } catch (error) {
+                    console.log('IndexedDB falló, usando fallback');
+                }
+
+                // Fallback a memoria
+                if (this.saveToMemory(file, type)) {
+                    console.log(`${type} guardado en memoria temporal`);
+                    return 'memory';
+                }
+
+                return false;
+            }
+
+            // Cargar archivo (intenta múltiples métodos)
+            async loadFile(type = 'audio') {
+                // Intentar IndexedDB primero
+                let fileData = await this.loadFromIndexedDB(type);
+                if (fileData) {
+                    console.log(`${type} cargado desde IndexedDB`);
+                    return fileData;
+                }
+
+                // Fallback a memoria temporal
+                fileData = this.loadFromMemory(type);
+                if (fileData) {
+                    console.log(`${type} cargado desde memoria temporal`);
+                    return fileData;
+                }
+
+                return null;
+            }
         }
 
-        // Función para mostrar mensajes
-        function showMessage(text, color) {
-            const msg = document.createElement('div');
-            msg.style.cssText = `
-                position: fixed; 
-                top: 20px; 
-                left: 50%; 
-                transform: translateX(-50%); 
-                background: ${color}; 
-                color: white; 
-                padding: 10px 20px; 
-                border-radius: 25px; 
-                z-index: 1000;
-                font-size: 0.9em;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            `;
-            msg.textContent = text;
-            document.body.appendChild(msg);
-            
+        const audioStorage = new AudioStorage();
+
+        // Función para mostrar notificaciones
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
             setTimeout(() => {
-                msg.style.opacity = '0';
-                msg.style.transition = 'opacity 0.5s';
-                setTimeout(() => msg.remove(), 500);
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(-50%) translateY(-20px)';
+                setTimeout(() => notification.remove(), 500);
             }, 3000);
         }
 
-        // Cargar audio al iniciar la página
-        window.addEventListener('load', function() {
-            loadSavedAudio();
-        });
+        // Actualizar estado visual
+        function updateStatus(status, message, icon) {
+            soundStatus.className = `sound-status ${status}`;
+            soundStatus.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+        }
 
-        // Manejar selección de archivo
-        audioFile.addEventListener('change', function(e) {
+        // Cargar configuración guardada al iniciar
+        async function loadSavedData() {
+            updateStatus('status-loading', 'Cargando configuración...', '⏳');
+            
+            // Cargar audio
+            const audioData = await audioStorage.loadFile('audio');
+            if (audioData) {
+                audioPlayer.src = audioData.url;
+                isAudioLoaded = true;
+                fileName.textContent = `${audioData.name} ✅`;
+                fileName.style.color = '#16a34a';
+                fileInfo.style.display = 'block';
+            }
+            
+            // Cargar logo/escudo
+            const logoData = await audioStorage.loadFile('logo');
+            if (logoData) {
+                const img = document.createElement('img');
+                img.src = logoData.url;
+                img.alt = 'Escudo';
+                cardLogo.innerHTML = '';
+                cardLogo.appendChild(img);
+                logoName.textContent = `${logoData.name} ✅`;
+                logoName.style.color = '#16a34a';
+                fileInfo.style.display = 'block';
+            }
+            
+            // Cargar texto personalizado
+            const customTitle = await audioStorage.loadConfig('cardTitle');
+            if (customTitle) {
+                cardTitle.textContent = customTitle;
+            }
+            
+            // Actualizar estado final
+            if (isAudioLoaded) {
+                updateStatus('status-ready', 'Audio listo para reproducir', '✅');
+                transportCard.classList.add('pulse');
+                showNotification('✅ Configuración cargada', 'success');
+            } else {
+                updateStatus('status-empty', 'Sin sonido cargado', '⚠️');
+            }
+        }
+
+        // Manejar selección de archivo de audio
+        audioFile.addEventListener('change', async function(e) {
             const file = e.target.files[0];
-            if (file) {
-                // Guardar el nuevo audio
-                saveAudioToStorage(file);
-                
+            if (!file) return;
+
+            updateStatus('status-loading', 'Guardando audio...', '⏳');
+            showNotification('💾 Guardando tu sonido...', 'info');
+
+            // Guardar archivo
+            const saveResult = await audioStorage.saveFile(file, 'audio');
+            
+            if (saveResult) {
                 // Configurar reproductor
                 const url = URL.createObjectURL(file);
                 audioPlayer.src = url;
-                window.customAudio = {
-                    url: url,
-                    name: file.name,
-                    type: file.type
-                };
-                
-                soundButton.disabled = false;
-                soundButton.textContent = '🎵 ¡Reproducir!';
-                
-                // Mostrar información del archivo
+                isAudioLoaded = true;
+                audioEnabled = false; // Reset para móviles
+
+                // Actualizar UI
                 fileInfo.style.display = 'block';
-                fileName.textContent = file.name + ' 💾 (Guardando...)';
-                fileName.style.color = '#ff9800';
+                fileName.textContent = `${file.name} ✅`;
+                fileName.style.color = '#16a34a';
                 
-                // Confirmar guardado después de un momento
-                setTimeout(() => {
-                    fileName.textContent = file.name + ' ✅ (Guardado)';
-                    fileName.style.color = '#2e7d32';
-                }, 1000);
+                updateStatus('status-ready', 'Audio listo para reproducir', '✅');
+                transportCard.classList.add('pulse');
                 
-                // Reset audio enabled flag
-                audioEnabled = false;
-                
-                // Mostrar mensaje de confirmación
-                showMessage('💾 Sonido guardado en tu navegador!', '#FF6B6B');
+                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
+                showNotification(`✅ Audio guardado ${storageType}`, 'success');
+            } else {
+                updateStatus('status-empty', 'Error al guardar audio', '❌');
+                showNotification('❌ Error al guardar el audio', 'error');
             }
         });
 
-        // Manejar click del botón
-        soundButton.addEventListener('click', function() {
+        // Manejar selección de logo/escudo
+        logoFile.addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                showNotification('⚠️ Selecciona una imagen válida', 'error');
+                return;
+            }
+
+            showNotification('💾 Guardando escudo...', 'info');
+
+            // Guardar archivo
+            const saveResult = await audioStorage.saveFile(file, 'logo');
+            
+            if (saveResult) {
+                // Mostrar imagen en el logo
+                const url = URL.createObjectURL(file);
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = 'Escudo';
+                cardLogo.innerHTML = '';
+                cardLogo.appendChild(img);
+
+                // Actualizar UI
+                fileInfo.style.display = 'block';
+                logoName.textContent = `${file.name} ✅`;
+                logoName.style.color = '#16a34a';
+                
+                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
+                showNotification(`✅ Escudo guardado ${storageType}`, 'success');
+            } else {
+                showNotification('❌ Error al guardar el escudo', 'error');
+            }
+        });
+
+        // Manejar edición del título de la tarjeta
+        cardTitle.addEventListener('blur', async function() {
+            const newTitle = cardTitle.textContent.trim();
+            if (newTitle) {
+                await audioStorage.saveConfig('cardTitle', newTitle);
+                showNotification('✅ Título guardado', 'success');
+            }
+        });
+
+        cardTitle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                cardTitle.blur();
+            }
+        });izar UI
+                fileInfo.style.display = 'block';
+                fileName.textContent = `${file.name} ✅`;
+                fileName.style.color = '#16a34a';
+                
+                updateStatus('status-ready', 'Audio listo para reproducir', '✅');
+                transportCard.classList.add('pulse');
+                
+                const storageType = saveResult === 'indexeddb' ? 'permanentemente' : 'temporalmente';
+                showNotification(`✅ Audio guardado ${storageType}`, 'success');
+            } else {
+                updateStatus('status-empty', 'Error al guardar audio', '❌');
+                showNotification('❌ Error al guardar el audio', 'error');
+            }
+        });
+
+        // Reproducir audio al tocar la tarjeta
+        transportCard.addEventListener('click', function() {
+            if (!isAudioLoaded) {
+                showNotification('⚠️ Primero selecciona un sonido', 'error');
+                return;
+            }
+
             if (!audioEnabled) {
-                // Primer toque - activar audio (necesario en móviles)
+                // Primer toque - activar audio (requerido en móviles)
                 audioPlayer.play().then(() => {
                     audioEnabled = true;
-                    soundButton.textContent = '🔊 ¡Toca para sonar!';
+                    transportCard.classList.remove('pulse');
+                    updateStatus('status-ready', 'Toca para reproducir', '🔊');
+                    showNotification('🎵 Audio activado - ¡Toca de nuevo!', 'success');
                 }).catch(e => {
                     console.log('Error al activar audio:', e);
+                    showNotification('❌ Error al activar audio', 'error');
                 });
             } else {
                 // Reproducir sonido
-                audioPlayer.currentTime = 0; // Reiniciar desde el principio
-                audioPlayer.play().catch(e => {
+                audioPlayer.currentTime = 0;
+                audioPlayer.play().then(() => {
+                    // Efecto visual
+                    transportCard.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        transportCard.style.transform = '';
+                    }, 150);
+                    
+                    // Vibración si está disponible
+                    if (navigator.vibrate) {
+                        navigator.vibrate(100);
+                    }
+                }).catch(e => {
                     console.log('Error al reproducir:', e);
+                    showNotification('❌ Error al reproducir', 'error');
                 });
             }
         });
 
-        // Agregar efecto visual al reproducir
-        audioPlayer.addEventListener('play', function() {
-            soundButton.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                soundButton.style.transform = 'translateY(-5px)';
-            }, 100);
-        });
-
-        // Vibración en móviles (si está disponible)
-        soundButton.addEventListener('click', function() {
-            if (navigator.vibrate && audioEnabled) {
-                navigator.vibrate(50);
-            }
-        });
-
-        // Prevenir que se pierda el audio al recargar
-        window.addEventListener('beforeunload', function() {
-            // El audio ya está guardado en window.customAudio
-            console.log('Página cerrada - Audio permanece guardado');
+        // Inicializar cuando la página esté lista
+        window.addEventListener('load', function() {
+            setTimeout(loadSavedAudio, 500);
         });
     </script>
 </body>
